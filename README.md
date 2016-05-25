@@ -11,5 +11,9 @@ gem install raml_doc
 ## Usage
 
 ```sh
+raml-doc --help
+```
+
+```sh
 raml-doc -s /path/to/api.raml -t default -f html > /path/to/api.html
 ```
