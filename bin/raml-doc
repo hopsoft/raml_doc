@@ -12,7 +12,7 @@ options = {
 option_parser = OptionParser.new do |opts|
   opts.banner = "Usage: ramldoc [options]"
 
-  opts.on("-v", "--version", "The source RAML file") do |value|
+  opts.on("-v", "--version", "Prints the version") do |value|
     if value
       puts "RamlDoc #{RamlDoc::VERSION}"
       exit 0
