@@ -14,6 +14,8 @@ Gem::Specification.new do |gem|
   gem.files       = Dir["lib/**/*.rb", "lib/**/*.erb", "bin/*", "[A-Z]*"]
   gem.test_files  = Dir["test/**/*.rb"]
 
+  gem.executables << "raml-doc"
+
   gem.add_dependency "raml_ruby", "0.1.2"
   gem.add_dependency "kramdown", "1.11.1"
 

@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "bundler/setup"
+require "raml_doc"
+
+options = {
+  :template => "default",
+  :format   => "html"
+}
+
+option_parser = OptionParser.new do |opts|
+  opts.banner = "Usage: ramldoc [options]"
+
+  opts.on("-s", "--source-file FILE", "The source RAML file") do |value|
+    options[:source_file] = value
+  end
+
+  opts.on("-t", "--template [default]", "The output template to use") do |value|
+    options[:template] = value
+  end
+
+  opts.on("-f", "--format [html]", "The output file format") do |value|
+    options[:template] = value
+  end
+end
+
+option_parser.parse!
+
+source_file = options[:source_file]
+template = options[:template]
+format = options[:format]
+
+puts RamlDoc.generate(source_file, template, format)

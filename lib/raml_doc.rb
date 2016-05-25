@@ -4,9 +4,9 @@ require "raml_doc/version"
 require "raml_doc/view"
 
 module RamlDoc
-  def self.generate(file_path, template)
+  def self.generate(file_path, template, format)
     raml = Raml.parse_file(file_path)
     view = View.new(raml)
-    view.render template
+    view.render template, format
   end
 end

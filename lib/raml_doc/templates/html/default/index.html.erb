@@ -35,41 +35,47 @@
               <div>
                 <ul class="nav nav-tabs" role="tablist">
                   <li role="presentation" class="active">
-                    <a href="#description-<%= resource.resource_path_name %>" aria-controls="home" role="tab" data-toggle="tab">
+                    <a href="#<%= method_element_id method, "description" %>" aria-controls="home" role="tab" data-toggle="tab">
                       <i class="fa fa-info-circle" aria-hidden="true"></i>
                       Description
                     </a>
                   </li>
-                  <li role="presentation">
-                    <a href="#headers-<%= resource.resource_path_name %>" aria-controls="home" role="tab" data-toggle="tab">
-                      <i class="fa fa-code" aria-hidden="true"></i>
-                      Headers
-                    </a>
-                  </li>
-                  <li role="presentation">
-                    <a href="#querystring-parameters<%= resource.resource_path_name %>" aria-controls="profile" role="tab" data-toggle="tab">
-                      <i class="fa fa-code" aria-hidden="true"></i>
-                      Querystring Parameters
-                    </a>
-                  </li>
-                  <li role="presentation">
-                    <a href="#responses-<%= resource.resource_path_name %>" aria-controls="home" role="tab" data-toggle="tab">
-                      <i class="fa fa-code" aria-hidden="true"></i>
-                      Responses
-                    </a>
-                  </li>
+                  <% if present? method.headers %>
+                    <li role="presentation">
+                      <a href="#<%= method_element_id method, "request-headers" %>" aria-controls="home" role="tab" data-toggle="tab">
+                        <i class="fa fa-code" aria-hidden="true"></i>
+                        Request Headers
+                      </a>
+                    </li>
+                  <% end %>
+                  <% if present? method.query_parameters %>
+                    <li role="presentation">
+                      <a href="#<%= method_element_id method, "querystring-parameters" %>" aria-controls="profile" role="tab" data-toggle="tab">
+                        <i class="fa fa-code" aria-hidden="true"></i>
+                        Querystring Parameters
+                      </a>
+                    </li>
+                  <% end %>
+                  <% if present? method.responses %>
+                    <li role="presentation">
+                      <a href="#<%= method_element_id method, "responses" %>" aria-controls="home" role="tab" data-toggle="tab">
+                        <i class="fa fa-code" aria-hidden="true"></i>
+                        Responses
+                      </a>
+                    </li>
+                  <% end %>
                 </ul>
 
                 <div class="tab-content">
-                  <div role="tabpanel" class="tab-pane active" id="description-<%= resource.resource_path_name %>">
+                  <div role="tabpanel" class="tab-pane active" id="<%= method_element_id method, "description" %>">
                     <p class="lead">
                       <%= markdown method.description %>
                     </p>
                   </div>
-                  <div role="tabpanel" class="tab-pane" id="headers-<%= resource.resource_path_name %>">
+                  <div role="tabpanel" class="tab-pane" id="<%= method_element_id method, "request-headers" %>">
                     <p>...</p>
                   </div>
-                  <div role="tabpanel" class="tab-pane" id="querystring-parameters<%= resource.resource_path_name %>">
+                  <div role="tabpanel" class="tab-pane" id="<%= method_element_id method, "querystring-parameters" %>">
                     <p>
                       <ul>
                       <% method.query_parameters.each do |_, parameter| %>
@@ -84,7 +90,7 @@
                       </ul>
                     </p>
                   </div>
-                  <div role="tabpanel" class="tab-pane" id="responses-<%= resource.resource_path_name %>">
+                  <div role="tabpanel" class="tab-pane" id="<%= method_element_id method, "responses" %>">
                     <p>...</p>
                   </div>
                 </div>
@@ -94,6 +100,18 @@
         <% end %>
       <% end %>
     </div>
+
+    <footer class="footer">
+      <div class="container">
+        <hr>
+        <p class="pull-right text-muted">
+          Created with
+          <a href="http://raml.org/">RAML&#8482;</a>
+          /
+          <a href="https://github.com/hopsoft/raml_doc">RAML Doc</a>
+        </p>
+      </div>
+    </footer>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <style type="text/css" rel="stylesheet">
