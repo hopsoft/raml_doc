@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head>
+    <title><%= @raml.title %></title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>
+        <%= @raml.title %>
+        <small>Version <%= @raml.version %></small>
+      </h1>
+
+      <% @raml.resources.each do |_, resource| %>
+        <h2 id="<%= resource.resource_path_name %>" class="page-header">
+          <i class="fa fa-external-link-square" aria-hidden="true"></i>
+          <%= resource.name %>
+        </h2>
+        <p class="lead">
+          <%= resource.description %>
+        </p>
+        <% resource.methods.each do |_, method| %>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <span class="label label-info"><%= method.name %></span>
+                <a class="text-muted" href="<%= @raml.base_uri + resource.resource_path %>">
+                  <%= @raml.base_uri + resource.resource_path %>
+                </a>
+                <small class="pull-right">
+                  <var><%= @raml.media_type %></var>
+                </small>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <div>
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" class="active">
+                    <a href="#description-<%= resource.resource_path_name %>" aria-controls="home" role="tab" data-toggle="tab">
+                      <i class="fa fa-info-circle" aria-hidden="true"></i>
+                      Description
+                    </a>
+                  </li>
+                  <li role="presentation">
+                    <a href="#headers-<%= resource.resource_path_name %>" aria-controls="home" role="tab" data-toggle="tab">
+                      <i class="fa fa-code" aria-hidden="true"></i>
+                      Headers
+                    </a>
+                  </li>
+                  <li role="presentation">
+                    <a href="#querystring-parameters<%= resource.resource_path_name %>" aria-controls="profile" role="tab" data-toggle="tab">
+                      <i class="fa fa-code" aria-hidden="true"></i>
+                      Querystring Parameters
+                    </a>
+                  </li>
+                  <li role="presentation">
+                    <a href="#responses-<%= resource.resource_path_name %>" aria-controls="home" role="tab" data-toggle="tab">
+                      <i class="fa fa-code" aria-hidden="true"></i>
+                      Responses
+                    </a>
+                  </li>
+                </ul>
+
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="description-<%= resource.resource_path_name %>">
+                    <p class="lead">
+                      <%= markdown method.description %>
+                    </p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="headers-<%= resource.resource_path_name %>">
+                    <p>...</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="querystring-parameters<%= resource.resource_path_name %>">
+                    <p>
+                      <ul>
+                      <% method.query_parameters.each do |_, parameter| %>
+                        <li>
+                          <var><strong><%= parameter.required ? "*#{parameter.name}" : "[#{parameter.name}]" %></strong></var>
+                          <% if parameter.example %>
+                            <code><%= parameter.example %></code>
+                          <% end %>
+                          <p><small><%= markdown parameter.description %></small></p>
+                        </li>
+                      <% end %>
+                      </ul>
+                    </p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="responses-<%= resource.resource_path_name %>">
+                    <p>...</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <style type="text/css" rel="stylesheet">
+      @import url(https://fonts.googleapis.com/css?family=Raleway:600|Merriweather);
+      h1, h2, h3, h4, h5, h6 { font-family: "Raleway", sans-serif; }
+      p, div { font-family: "Merriweather", serif; }
+      code, pre, kbd, var { font-family: monospace; }
+    </style>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/ff1f204224.js"></script>
+  </body>
+</html>

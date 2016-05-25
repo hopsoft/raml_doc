@@ -15,6 +15,7 @@ Gem::Specification.new do |gem|
   gem.test_files  = Dir["test/**/*.rb"]
 
   gem.add_dependency "raml_ruby", "0.1.2"
+  gem.add_dependency "kramdown", "1.11.1"
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "pry-test"
