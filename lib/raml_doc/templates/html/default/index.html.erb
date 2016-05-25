@@ -11,7 +11,7 @@
       </h1>
 
       <% @raml.resources.each do |_, resource| %>
-        <h2 id="<%= resource.resource_path_name %>" class="page-header">
+        <h2 id="<%= resource.resource_path_name %>">
           <i class="fa fa-external-link-square" aria-hidden="true"></i>
           <%= resource.name %>
         </h2>
@@ -36,14 +36,12 @@
                 <ul class="nav nav-tabs" role="tablist">
                   <li role="presentation" class="active">
                     <a href="#<%= method_element_id method, "description" %>" aria-controls="home" role="tab" data-toggle="tab">
-                      <i class="fa fa-info-circle" aria-hidden="true"></i>
                       Description
                     </a>
                   </li>
                   <% if present? method.headers %>
                     <li role="presentation">
                       <a href="#<%= method_element_id method, "request-headers" %>" aria-controls="home" role="tab" data-toggle="tab">
-                        <i class="fa fa-code" aria-hidden="true"></i>
                         Request Headers
                       </a>
                     </li>
@@ -51,7 +49,6 @@
                   <% if present? method.query_parameters %>
                     <li role="presentation">
                       <a href="#<%= method_element_id method, "querystring-parameters" %>" aria-controls="profile" role="tab" data-toggle="tab">
-                        <i class="fa fa-code" aria-hidden="true"></i>
                         Querystring Parameters
                       </a>
                     </li>
@@ -59,23 +56,37 @@
                   <% if present? method.responses %>
                     <li role="presentation">
                       <a href="#<%= method_element_id method, "responses" %>" aria-controls="home" role="tab" data-toggle="tab">
-                        <i class="fa fa-code" aria-hidden="true"></i>
                         Responses
                       </a>
                     </li>
                   <% end %>
+                  <li role="presentation">
+                    <a href="#<%= method_element_id method, "examples" %>" aria-controls="home" role="tab" data-toggle="tab">
+                      Examples
+                    </a>
+                  </li>
                 </ul>
 
                 <div class="tab-content">
                   <div role="tabpanel" class="tab-pane active" id="<%= method_element_id method, "description" %>">
-                    <p class="lead">
-                      <%= markdown method.description %>
-                    </p>
+                    <h3>
+                      <i class="fa fa-info-circle" aria-hidden="true"></i>
+                      Description
+                    </h3>
+                    <%= markdown method.description %>
                   </div>
                   <div role="tabpanel" class="tab-pane" id="<%= method_element_id method, "request-headers" %>">
+                    <h3>
+                      <i class="fa fa-info-circle" aria-hidden="true"></i>
+                      Request Headers
+                    </h3>
                     <p>...</p>
                   </div>
                   <div role="tabpanel" class="tab-pane" id="<%= method_element_id method, "querystring-parameters" %>">
+                    <h3>
+                      <i class="fa fa-info-circle" aria-hidden="true"></i>
+                      Querystring Parameters
+                    </h3>
                     <p>
                       <ul>
                       <% method.query_parameters.each do |_, parameter| %>
@@ -91,6 +102,17 @@
                     </p>
                   </div>
                   <div role="tabpanel" class="tab-pane" id="<%= method_element_id method, "responses" %>">
+                    <h3>
+                      <i class="fa fa-info-circle" aria-hidden="true"></i>
+                      Responses
+                    </h3>
+                    <p>...</p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="<%= method_element_id method, "examples" %>">
+                    <h3>
+                      <i class="fa fa-info-circle" aria-hidden="true"></i>
+                      Examples
+                    </h3>
                     <p>...</p>
                   </div>
                 </div>
@@ -117,8 +139,11 @@
     <style type="text/css" rel="stylesheet">
       @import url(https://fonts.googleapis.com/css?family=Raleway:600|Merriweather);
       h1, h2, h3, h4, h5, h6 { font-family: "Raleway", sans-serif; }
+      h2 { margin-top: 40px; }
+      h3 { margin-top: 20px; margin-bottom: 20px; }
       p, div { font-family: "Merriweather", serif; }
       code, pre, kbd, var { font-family: monospace; }
+      .panel { margin-left: 30px; }
     </style>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
