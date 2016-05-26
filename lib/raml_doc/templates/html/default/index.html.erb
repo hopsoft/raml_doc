@@ -22,7 +22,7 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">
-                <span class="label label-info"><%= method.name %></span>
+                <span class="label <%= method_boostrap_label_css_class method %>"><%= method.name %></span>
                 <a class="text-muted" href="<%= @raml.base_uri + resource.resource_path %>">
                   <%= @raml.base_uri + resource.resource_path %>
                 </a>
@@ -50,6 +50,13 @@
                     <li role="presentation">
                       <a href="#<%= method_element_id method, "querystring-parameters" %>" aria-controls="profile" role="tab" data-toggle="tab">
                         Querystring Parameters
+                      </a>
+                    </li>
+                  <% end %>
+                  <% if present? method.bodies %>
+                    <li role="presentation">
+                      <a href="#<%= method_element_id method, "request-bodies" %>" aria-controls="home" role="tab" data-toggle="tab">
+                        Request Bodies
                       </a>
                     </li>
                   <% end %>
@@ -91,8 +98,14 @@
                       <ul>
                       <% method.query_parameters.each do |_, parameter| %>
                         <li>
-                          <var><strong><%= parameter.required ? "*#{parameter.name}" : "[#{parameter.name}]" %></strong></var>
+                          <var>
+                            <strong><%= parameter.name %></strong>
+                            <% if parameter.required %>
+                              <span class="label label-danger">required</span>
+                            <% end %>
+                          </var>
                           <% if parameter.example %>
+                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                             <code><%= parameter.example %></code>
                           <% end %>
                           <p><small><%= markdown parameter.description %></small></p>
@@ -100,6 +113,35 @@
                       <% end %>
                       </ul>
                     </p>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="<%= method_element_id method, "request-bodies" %>">
+                    <h3>
+                      <i class="fa fa-info-circle" aria-hidden="true"></i>
+                      Request Bodies
+                    </h3>
+                    <% method.bodies.each do |_, body| %>
+                      <h4>Body</h4>
+                      <h5>Form Parameters</h5>
+                      <p>
+                        <ul>
+                        <% body.form_parameters.each do |_, parameter| %>
+                          <li>
+                            <var>
+                              <strong><%= parameter.name %></strong>
+                              <% if parameter.required %>
+                                <span class="label label-danger">required</span>
+                              <% end %>
+                            </var>
+                            <% if parameter.example %>
+                              <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                              <code><%= parameter.example %></code>
+                            <% end %>
+                            <p><small><%= markdown parameter.description %></small></p>
+                          </li>
+                        <% end %>
+                        </ul>
+                      </p>
+                    <% end %>
                   </div>
                   <div role="tabpanel" class="tab-pane" id="<%= method_element_id method, "responses" %>">
                     <h3>
@@ -113,7 +155,17 @@
                       <i class="fa fa-info-circle" aria-hidden="true"></i>
                       Examples
                     </h3>
-                    <p>...</p>
+                    <% if present? method.bodies %>
+                      <% method.bodies.each do |_, body| %>
+                        <p>
+                          <pre>curl -X <%= method.name.upcase %> --data '<%= method_querystring_example body.form_parameters %>' <%= method_uri_example method %></pre>
+                        </p>
+                      <% end %>
+                    <% else %>
+                      <p>
+                        <pre>curl -X <%= method.name.upcase %> <%= method_uri_example method %></pre>
+                      </p>
+                    <% end %>
                   </div>
                 </div>
               </div>
@@ -143,6 +195,7 @@
       h3 { margin-top: 20px; margin-bottom: 20px; }
       p, div { font-family: "Merriweather", serif; }
       code, pre, kbd, var { font-family: monospace; }
+      pre { white-space: pre-wrap; word-wrap: break-word; }
       .panel { margin-left: 30px; }
     </style>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
