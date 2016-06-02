@@ -1,5 +1,6 @@
 require "raml"
 require "erb"
+require "active_support/all"
 require "raml_doc/version"
 require "raml_doc/view"
 

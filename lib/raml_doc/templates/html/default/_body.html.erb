@@ -1,0 +1,7 @@
+<h4>Body</h4>
+<h5>Form Parameters</h5>
+<p>
+  <ul>
+    <%= render_partial "parameter", collection: @body.form_parameters.map(&:last) %>
+  </ul>
+</p>

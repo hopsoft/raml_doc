@@ -1,0 +1,13 @@
+<li>
+  <var>
+    <strong><%= @parameter.name %></strong>
+    <% if @parameter.required %>
+      <span class="label label-danger">required</span>
+    <% end %>
+  </var>
+  <% if @parameter.example %>
+    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+    <code><%= @parameter.example %></code>
+  <% end %>
+  <p><small><%= markdown @parameter.description %></small></p>
+</li>

@@ -1,0 +1,116 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <span class="label <%= method_boostrap_label_css_class @method %>"><%= @method.name %></span>
+      <a class="text-muted" href="<%= raml.base_uri + @resource.resource_path %>">
+        <%= raml.base_uri + @resource.resource_path %>
+      </a>
+      <small class="pull-right">
+        <var><%= raml.media_type %></var>
+      </small>
+    </h3>
+  </div>
+  <div class="panel-body">
+    <div>
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#<%= method_element_id @method, "description" %>" aria-controls="home" role="tab" data-toggle="tab">
+            Description
+          </a>
+        </li>
+        <% if present? @method.headers %>
+          <li role="presentation">
+            <a href="#<%= method_element_id @method, "request-headers" %>" aria-controls="home" role="tab" data-toggle="tab">
+              Request Headers
+            </a>
+          </li>
+        <% end %>
+        <% if present? @method.query_parameters %>
+          <li role="presentation">
+            <a href="#<%= method_element_id @method, "querystring-parameters" %>" aria-controls="profile" role="tab" data-toggle="tab">
+              Querystring Parameters
+            </a>
+          </li>
+        <% end %>
+        <% if present? @method.bodies %>
+          <li role="presentation">
+            <a href="#<%= method_element_id @method, "request-bodies" %>" aria-controls="home" role="tab" data-toggle="tab">
+              Request Bodies
+            </a>
+          </li>
+        <% end %>
+        <% if present? @method.responses %>
+          <li role="presentation">
+            <a href="#<%= method_element_id @method, "responses" %>" aria-controls="home" role="tab" data-toggle="tab">
+              Responses
+            </a>
+          </li>
+        <% end %>
+        <li role="presentation">
+          <a href="#<%= method_element_id @method, "examples" %>" aria-controls="home" role="tab" data-toggle="tab">
+            Examples
+          </a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="<%= method_element_id @method, "description" %>">
+          <h3>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            Description
+          </h3>
+          <%= markdown @method.description %>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "request-headers" %>">
+          <h3>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            Request Headers
+          </h3>
+          <p>...</p>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "querystring-parameters" %>">
+          <h3>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            Querystring Parameters
+          </h3>
+          <p>
+            <ul>
+              <%= render_partial "parameter", collection: @method.query_parameters.map(&:last) %>
+            </ul>
+          </p>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "request-bodies" %>">
+          <h3>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            Request Bodies
+          </h3>
+          <%= render_partial "body", collection: @method.bodies.map(&:last) %>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "responses" %>">
+          <h3>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            Responses
+          </h3>
+          <p>...</p>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "examples" %>">
+          <h3>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            Examples
+          </h3>
+          <% if present? @method.bodies %>
+            <% @method.bodies.each do |_, body| %>
+              <p>
+                <pre>curl -X <%= @method.name.upcase %> --data '<%= method_querystring_example body.form_parameters %>' <%= method_uri_example @method %></pre>
+              </p>
+            <% end %>
+          <% else %>
+            <p>
+              <pre>curl -X <%= @method.name.upcase %> <%= method_uri_example @method %></pre>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
