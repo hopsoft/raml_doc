@@ -28,11 +28,13 @@ module RamlDoc
 
     def render_partial(name, locals: {}, collection: nil)
       if collection
-        collection.each_with_object([]) do |item, memo|
+        collection.each_with_object([]).with_index do |(item, memo), index|
+          @index = index
           instance_variable_set "@#{name}", item
           erb = ERB.new(File.read(partial_path(name)))
           memo << erb.result(binding)
-          remove_instance_variable "@#{name}"
+          remove_instance_variable "@index" rescue nil
+          remove_instance_variable "@#{name}" rescue nil
         end.join
       else
         erb = ERB.new(File.read(partial_path(name)))

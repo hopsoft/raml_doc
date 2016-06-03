@@ -4,7 +4,7 @@
     <title><%= raml.title %></title>
   </head>
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <h1>
         <%= raml.title %>
         <small>Version <%= raml.version %></small>
@@ -14,7 +14,7 @@
     </div>
 
     <footer class="footer">
-      <div class="container">
+      <div class="container-fluid">
         <hr>
         <p class="pull-right text-muted">
           Created with
@@ -27,17 +27,17 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <style type="text/css" rel="stylesheet">
-      @import url(https://fonts.googleapis.com/css?family=Raleway:600|Merriweather);
-      h1, h2, h3, h4, h5, h6 { font-family: "Raleway", sans-serif; }
       h2 { margin-top: 40px; }
       h3 { margin-top: 20px; margin-bottom: 20px; }
-      p, div { font-family: "Merriweather", serif; }
-      code, pre, kbd, var { font-family: monospace; }
       pre { white-space: pre-wrap; word-wrap: break-word; }
-      .panel { margin-left: 30px; }
+      a.btn { color: #fff; }
+      .panel-heading h2 { margin: 0; }
     </style>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/ff1f204224.js"></script>
+    <script type="text/javascript">
+    $(function () { $('[data-toggle=tooltip]').tooltip(); });
+    </script>
   </body>
 </html>

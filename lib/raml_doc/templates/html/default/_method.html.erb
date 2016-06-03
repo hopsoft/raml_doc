@@ -1,13 +1,15 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">
-      <span class="label <%= method_boostrap_label_css_class @method %>"><%= @method.name %></span>
-      <a class="text-muted" href="<%= raml.base_uri + @resource.resource_path %>">
-        <%= raml.base_uri + @resource.resource_path %>
+    <h3 class="panel-title"
+      id="<%= [@method.name, @resource.resource_path_name].join "-" %>"
+      title="#<%= [@method.name, @resource.resource_path_name].join "-" %>"
+      data-toggle="tooltip" data-position="top" data-trigger="click">
+      <a class="btn <%= method_boostrap_btn_css_class @method %>"
+        data-toggle="tooltip" data-placement="top" title="HTTP Request Method"
+        href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">
+        <%= @method.name.upcase %>
       </a>
-      <small class="pull-right">
-        <var><%= raml.media_type %></var>
-      </small>
+      <%= raml.base_uri + @resource.resource_path %>
     </h3>
   </div>
   <div class="panel-body">
@@ -55,49 +57,42 @@
 
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="<%= method_element_id @method, "description" %>">
-          <h3>
-            <i class="fa fa-info-circle" aria-hidden="true"></i>
-            Description
-          </h3>
-          <%= markdown @method.description %>
+          <br>
+          <p>
+            <%= markdown @method.description %>
+          </p>
         </div>
         <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "request-headers" %>">
-          <h3>
-            <i class="fa fa-info-circle" aria-hidden="true"></i>
-            Request Headers
-          </h3>
+          <br>
           <p>...</p>
         </div>
         <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "querystring-parameters" %>">
-          <h3>
-            <i class="fa fa-info-circle" aria-hidden="true"></i>
-            Querystring Parameters
-          </h3>
+          <br>
           <p>
-            <ul>
+            <table class="table table-bordered table-hover">
+              <tr>
+                <th></th>
+                <th>Required</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Example</th>
+              </tr>
               <%= render_partial "parameter", collection: @method.query_parameters.map(&:last) %>
-            </ul>
+            </table>
           </p>
         </div>
         <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "request-bodies" %>">
-          <h3>
-            <i class="fa fa-info-circle" aria-hidden="true"></i>
-            Request Bodies
-          </h3>
-          <%= render_partial "body", collection: @method.bodies.map(&:last) %>
+          <br>
+          <p>
+            <%= render_partial "body", collection: @method.bodies.map(&:last) %>
+          </p>
         </div>
         <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "responses" %>">
-          <h3>
-            <i class="fa fa-info-circle" aria-hidden="true"></i>
-            Responses
-          </h3>
+          <br>
           <p>...</p>
         </div>
         <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "examples" %>">
-          <h3>
-            <i class="fa fa-info-circle" aria-hidden="true"></i>
-            Examples
-          </h3>
+          <br>
           <% if present? @method.bodies %>
             <% @method.bodies.each do |_, body| %>
               <p>

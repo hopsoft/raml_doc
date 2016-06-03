@@ -9,7 +9,7 @@ module RamlDoc
     end
 
     def render(template, format)
-      template_path = File.join(File.expand_path("../templates", __FILE__), format, template, "index.#{format}.erb")
+      template_path = File.join(File.expand_path("../templates", __FILE__), format, template, "template.#{format}.erb")
       erb = ERB.new(File.read(template_path))
       template_context = TemplateContext.new(raml, template, format)
       erb.result template_context.context

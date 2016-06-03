@@ -1,12 +1,12 @@
 module TemplateHelper
-  def method_boostrap_label_css_class(method)
+  def method_boostrap_btn_css_class(method)
     case method.name
-    when "get" then "label-success"
-    when "post" then "label-primary"
-    when "put" then "label-info"
-    when "patch" then "label-warning"
-    when "delete" then "label-danger"
-    else "label-default"
+    when "get" then "btn-success"
+    when "post" then "btn-primary"
+    when "put" then "btn-info"
+    when "patch" then "btn-warning"
+    when "delete" then "btn-danger"
+    else "btn-default"
     end
   end
 
