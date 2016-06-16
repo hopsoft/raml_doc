@@ -10,9 +10,9 @@ module TemplateHelper
     end
   end
 
-  def method_element_id(method, *args)
+  def method_element_id(*args)
     args << method.name
-    args << method.parent.resource_path_name
+    args << resource.name
     args.compact.join "-"
   end
 
@@ -30,7 +30,7 @@ module TemplateHelper
     uri = []
     uri << "#{method.parent.parent.base_uri}#{method.parent.resource_path}"
     uri << "#{method_querystring_example method.query_parameters}"
-    uri.keep_if { |entry| present? entry }
+    uri.keep_if { |entry| entry.present? }
     uri.join "?"
   end
 end

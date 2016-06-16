@@ -10,7 +10,7 @@
         <small>Version <%= raml.version %></small>
       </h1>
 
-      <%= render_partial "resource", collection: raml.resources.map(&:last) %>
+      <%= render_partial "resource", collection: raml.resources %>
     </div>
 
     <footer class="footer">

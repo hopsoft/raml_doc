@@ -6,22 +6,22 @@
 <br>
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h2 id="<%= @resource.resource_path_name %>"
-      title="#<%= @resource.resource_path_name %>" data-toggle="tooltip" data-placement="top" data-trigger="click">
+    <h2 id="<%= resource.name %>"
+      title="#<%= resource.name %>" data-toggle="tooltip" data-placement="top" data-trigger="click">
       <i class="fa fa-external-link-square" aria-hidden="true"></i>
-      <%= @resource.name %>
+      <%= resource.name %>
     </h2>
   </div>
   <div class="panel-body">
-    <% if present? @resource.description %>
+    <% if resource.description.present? %>
       <div class="jumbotron">
         <p class="lead">
-          <%= markdown @resource.description %>
+          <%= markdown resource.description %>
         </p>
       </div>
     <% end %>
     <br>
-    <%= render_partial "method", collection: @resource.methods.map(&:last) %>
+    <%= render_partial "method", collection: resource.methods %>
   </div>
 </div>
 <br>

@@ -1,5 +1,5 @@
 <tr class="<%= @parameter.required ? "danger" : nil %>">
-  <td><strong><%= @index + 1 if present? @index %></strong></td>
+  <td><strong><%= @index + 1 if @index.present? %></strong></td>
   <td>
     <% if @parameter.required %>
       <span class="label label-danger">

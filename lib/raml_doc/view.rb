@@ -1,3 +1,4 @@
+require "erb"
 require_relative "template_context"
 
 module RamlDoc
@@ -14,6 +15,5 @@ module RamlDoc
       template_context = TemplateContext.new(raml, template, format)
       erb.result template_context.context
     end
-
   end
 end

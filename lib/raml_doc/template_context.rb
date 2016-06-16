@@ -1,6 +1,6 @@
 require "cgi"
 require "kramdown"
-require "pry"
+require "active_support/all"
 
 module RamlDoc
   class TemplateContext
@@ -13,11 +13,6 @@ module RamlDoc
       include_helper
     end
 
-    def present?(value)
-      return !value.empty? if value.respond_to?(:empty?)
-      !!value
-    end
-
     def markdown(string)
       Kramdown::Document.new(string).to_html
     end
@@ -25,6 +20,8 @@ module RamlDoc
     def context
       binding
     end
+
+    attr_reader :resource, :method, :parameter, :body
 
     def render_partial(name, locals: {}, collection: nil)
       if collection

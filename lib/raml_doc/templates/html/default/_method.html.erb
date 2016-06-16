@@ -1,72 +1,72 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title"
-      id="<%= [@method.name, @resource.resource_path_name].join "-" %>"
-      title="#<%= [@method.name, @resource.resource_path_name].join "-" %>"
+      id="<%= [method.name, resource.name].join "-" %>"
+      title="#<%= [method.name, resource.name].join "-" %>"
       data-toggle="tooltip" data-position="top" data-trigger="click">
-      <a class="btn <%= method_boostrap_btn_css_class @method %>"
+      <a class="btn <%= method_boostrap_btn_css_class method %>"
         data-toggle="tooltip" data-placement="top" title="HTTP Request Method"
         href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">
-        <%= @method.name.upcase %>
+        <%= method.name.upcase %>
       </a>
-      <%= raml.base_uri + @resource.resource_path %>
+      <%= raml.base_uri + resource.path %>
     </h3>
   </div>
   <div class="panel-body">
     <div>
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
-          <a href="#<%= method_element_id @method, "description" %>" aria-controls="home" role="tab" data-toggle="tab">
+          <a href="#<%= method_element_id "description" %>" aria-controls="home" role="tab" data-toggle="tab">
             Description
           </a>
         </li>
-        <% if present? @method.headers %>
+        <% if method.headers.present? %>
           <li role="presentation">
-            <a href="#<%= method_element_id @method, "request-headers" %>" aria-controls="home" role="tab" data-toggle="tab">
+            <a href="#<%= method_element_id "request-headers" %>" aria-controls="home" role="tab" data-toggle="tab">
               Request Headers
             </a>
           </li>
         <% end %>
-        <% if present? @method.query_parameters %>
+        <% if method.query_parameters.present? %>
           <li role="presentation">
-            <a href="#<%= method_element_id @method, "querystring-parameters" %>" aria-controls="profile" role="tab" data-toggle="tab">
+            <a href="#<%= method_element_id "querystring-parameters" %>" aria-controls="profile" role="tab" data-toggle="tab">
               Querystring Parameters
             </a>
           </li>
         <% end %>
-        <% if present? @method.bodies %>
+        <% if method.bodies.present? %>
           <li role="presentation">
-            <a href="#<%= method_element_id @method, "request-bodies" %>" aria-controls="home" role="tab" data-toggle="tab">
+            <a href="#<%= method_element_id "request-bodies" %>" aria-controls="home" role="tab" data-toggle="tab">
               Request Bodies
             </a>
           </li>
         <% end %>
-        <% if present? @method.responses %>
+        <% if method.responses.present? %>
           <li role="presentation">
-            <a href="#<%= method_element_id @method, "responses" %>" aria-controls="home" role="tab" data-toggle="tab">
+            <a href="#<%= method_element_id "responses" %>" aria-controls="home" role="tab" data-toggle="tab">
               Responses
             </a>
           </li>
         <% end %>
         <li role="presentation">
-          <a href="#<%= method_element_id @method, "examples" %>" aria-controls="home" role="tab" data-toggle="tab">
+          <a href="#<%= method_element_id "examples" %>" aria-controls="home" role="tab" data-toggle="tab">
             Examples
           </a>
         </li>
       </ul>
 
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="<%= method_element_id @method, "description" %>">
+        <div role="tabpanel" class="tab-pane active" id="<%= method_element_id "description" %>">
           <br>
           <p>
-            <%= markdown @method.description %>
+            <%= markdown method.description %>
           </p>
         </div>
-        <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "request-headers" %>">
+        <div role="tabpanel" class="tab-pane" id="<%= method_element_id "request-headers" %>">
           <br>
           <p>...</p>
         </div>
-        <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "querystring-parameters" %>">
+        <div role="tabpanel" class="tab-pane" id="<%= method_element_id "querystring-parameters" %>">
           <br>
           <p>
             <table class="table table-bordered table-hover">
@@ -77,33 +77,22 @@
                 <th>Description</th>
                 <th>Example</th>
               </tr>
-              <%= render_partial "parameter", collection: @method.query_parameters.map(&:last) %>
+              <%# render_partial "parameter", collection: method.query_parameters %>
             </table>
           </p>
         </div>
-        <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "request-bodies" %>">
+        <div role="tabpanel" class="tab-pane" id="<%= method_element_id "request-bodies" %>">
           <br>
           <p>
-            <%= render_partial "body", collection: @method.bodies.map(&:last) %>
+            <%# render_partial "body", collection: method.bodies %>
           </p>
         </div>
-        <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "responses" %>">
+        <div role="tabpanel" class="tab-pane" id="<%= method_element_id "responses" %>">
           <br>
           <p>...</p>
         </div>
-        <div role="tabpanel" class="tab-pane" id="<%= method_element_id @method, "examples" %>">
+        <div role="tabpanel" class="tab-pane" id="<%= method_element_id "examples" %>">
           <br>
-          <% if present? @method.bodies %>
-            <% @method.bodies.each do |_, body| %>
-              <p>
-                <pre>curl -X <%= @method.name.upcase %> --data '<%= method_querystring_example body.form_parameters %>' <%= method_uri_example @method %></pre>
-              </p>
-            <% end %>
-          <% else %>
-            <p>
-              <pre>curl -X <%= @method.name.upcase %> <%= method_uri_example @method %></pre>
-            </p>
-          <% end %>
         </div>
       </div>
     </div>
