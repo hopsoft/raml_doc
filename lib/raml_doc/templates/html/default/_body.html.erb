@@ -1,0 +1,14 @@
+<h4>Body</h4>
+<h5>Form Parameters</h5>
+<p>
+<table class="table table-bordered table-hover">
+  <tr>
+    <th></th>
+    <th>Required</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Example</th>
+  </tr>
+  <%= render_partial "parameter", collection: @body.form_parameters.map(&:last) %>
+</table>
+</p>

@@ -38,4 +38,19 @@ source_file = options[:source_file]
 template = options[:template]
 format = options[:format]
 
+if source_file.to_s.strip.empty?
+  puts "You must specifiy a source file! See: --source-file -s"
+  exit 1
+end
+
+if template.to_s.strip.empty?
+  puts "You must specify a template! See: --template -t"
+  exit 1
+end
+
+if format.to_s.strip.empty?
+  puts "You must specify a format! See: --format -f"
+  exit 1
+end
+
 puts RamlDoc.generate(source_file, template, format)

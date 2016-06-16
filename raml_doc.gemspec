@@ -1,5 +1,4 @@
 # coding: utf-8
-# coding: utf-8
 require_relative "lib/raml_doc/version"
 
 Gem::Specification.new do |gem|
@@ -16,8 +15,9 @@ Gem::Specification.new do |gem|
 
   gem.executables << "raml-doc"
 
-  gem.add_dependency "raml_ruby", "0.1.2"
+  gem.add_dependency "activesupport", ">= 4.0"
   gem.add_dependency "kramdown", "1.11.1"
+  gem.add_dependency "queryable_hash", "1.0.0"
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "pry-test"

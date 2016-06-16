@@ -1,0 +1,17 @@
+<tr class="<%= @parameter.required ? "danger" : nil %>">
+  <td><strong><%= @index + 1 if @index.present? %></strong></td>
+  <td>
+    <% if @parameter.required %>
+      <span class="label label-danger">
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </span>
+    <% end %>
+  </td>
+  <td>
+    <var>
+      <strong><%= @parameter.name %></strong>
+    </var>
+  </td>
+  <td><%= markdown @parameter.description %></td>
+  <td><code><%= @parameter.example %></code></td>
+</tr>
